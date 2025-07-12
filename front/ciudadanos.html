@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body>
+    <!-- Modal -->
+    <div class="modal fade " id="exampleModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content bg-black text-light">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="h1modal">Crear Ciudadano</h1>
+                </div>
+                <div class="modal-body">
+
+                    <form id="añadir-ciudadano">
+                        <!-- Campo oculto por si se necesita en el futuro -->
+                        <input type="hidden" id="codigo" name="codigo">
+
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="apellido" class="form-label">Apellido</label>
+                            <input type="text" class="form-control" id="apellido" name="apellido" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="apodo" class="form-label">Apodo</label>
+                            <input type="text" class="form-control" id="apodo" name="apodo">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                            <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="planetaOrigen" class="form-label">Planeta de Origen</label>
+                            <input type="text" class="form-control" id="planetaOrigen" name="planetaOrigen" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="planetaResidencia" class="form-label">Planeta de Residencia</label>
+                            <input type="text" class="form-control" id="planetaResidencia" name="planetaResidencia"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="foto" class="form-label">Foto</label>
+                            <input type="file" class="form-control" id="foto" name="foto" accept="image/*">
+                            <div class="mt-2">
+                                <img id="previewFoto" src="" alt="Vista previa" width="100" style="display: none;">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="estado" class="form-label">Estado</label>
+                            <select class="form-select" id="estado" name="estado" required>
+                                <option value="0">Muerto</option>
+                                <option value="1">Vivo</option>
+                                <option value="2">Congelado por criogenia</option>
+                            </select>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle-fill"></i> Cerrar
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btn-add-ciudadano">
+                        <i class="bi bi-plus-circle-fill"></i> Añadir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Editar -->
+    <div class="modal fade " id="ModalEditar" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content bg-black text-light">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="h1modal">Editar aprendiz</h1>
+                </div>
+                <div class="modal-body">
+
+                    <form id="form-ciudadano">
+                        <div class="mb-3">
+                            <label for="Id" class="form-label">ID</label>
+                            <input type="text" class="form-control" id="IdEdit" name="id" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombreEdit" name="nombre" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="apellido" class="form-label">Apellido</label>
+                            <input type="text" class="form-control" id="apellidoEdit" name="apellido" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="apodo" class="form-label">Apodo</label>
+                            <input type="text" class="form-control" id="apodoEdit" name="apodo">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                            <input type="date" class="form-control" id="fechaNacimientoEdit" name="fechaNacimiento"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="planetaOrigen" class="form-label">Planeta de Origen</label>
+                            <input type="text" class="form-control" id="planetaOrigenEdit" name="planetaOrigen"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="planetaResidencia" class="form-label">Planeta de Residencia</label>
+                            <input type="text" class="form-control" id="planetaResidenciaEdit" name="planetaResidencia"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="foto" class="form-label">Foto</label>
+                            <input type="file" class="form-control" id="fotoEdit" name="foto" accept="image/*">
+                            <div class="mt-2">
+                                <img id="previewFotoEdit" src="" alt="Vista previa" width="100" style="display: none;">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="estado" class="form-label">Estado</label>
+                            <select class="form-select" id="estadoEdit" name="estado" required>
+                                <option value="0">muerto</option>
+                                <option value="1">vivo</option>
+                                <option value="2">congelado por criogenia</option>
+                            </select>
+                        </div>
+                    </form>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cerrar-editar" data-bs-dismiss="modal"><i
+                            class="bi bi-x-circle-fill"></i> Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="btn-edit-ciudadano"><i
+                            class="bi bi-plus-circle-fill"></i> Editar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-11 text-center p-3 bg-dark rounded shadow">
+                <h1 class="fw-bold text-light">Estos son los ejemplos creados</h1>
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i class="bi bi-plus-circle-fill"></i> Crear
+                </button>
+
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Codigo</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Apodo</th>
+                            <th scope="col">Fecha Nacimiento</th>
+                            <th scope="col">Planeta Origen</th>
+                            <th scope="col">Planeta Residencia</th>
+                            <th scope="col">Foto</th>
+                            <th scope="col">QR</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Acciones</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-ciudadano">
+
+                    </tbody>
+                </table>
+            </div>
+            <img src="" alt="">
+        </div>
+    </div>
+    <script type="module" src="./src/js/ciudadano.js"></script>
+</body>
+
+</html>

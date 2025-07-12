@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Modal Crear Usuario -->
+    <div class="modal fade" id="modalCrear" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Crear Usuario</h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-crear-usuario">
+                        <div class="mb-3">
+                            <label for="usuario" class="form-label">Usuario</label>
+                            <input type="text" class="form-control" id="usuario" name="usuario" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="pass" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="pass" name="pass" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="rol_id" class="form-label">Rol</label>
+                            <select class="form-select" id="rol_id" name="rol_id" required>
+                                <option value="">Seleccione un rol</option>
+                                <!-- Los roles se cargarán dinámicamente -->
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle-fill"></i> Cerrar
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btn-crear-usuario">
+                        <i class="bi bi-plus-circle-fill"></i> Crear
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Usuario -->
+    <div class="modal fade" id="modalEditar" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Editar Usuario</h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-editar-usuario">
+                        <div class="mb-3">
+                            <label for="idEdit" class="form-label">ID</label>
+                            <input type="text" class="form-control" id="idEdit" name="id" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="usuarioEdit" class="form-label">Usuario</label>
+                            <input type="text" class="form-control" id="usuarioEdit" name="usuario" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="passEdit" class="form-label">Nueva Contraseña</label>
+                            <input type="password" class="form-control" id="passEdit" name="pass" 
+                                   placeholder="Dejar vacío para mantener la actual">
+                            <small class="form-text text-muted">Dejar vacío si no desea cambiar la contraseña</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="rol_idEdit" class="form-label">Rol</label>
+                            <select class="form-select" id="rol_idEdit" name="rol_id" required>
+                                <option value="">Seleccione un rol</option>
+                                <!-- Los roles se cargarán dinámicamente -->
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle-fill"></i> Cerrar
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btn-editar-usuario">
+                        <i class="bi bi-pencil-square"></i> Actualizar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-11 text-center p-3 bg-dark rounded shadow">
+                <h1 class="fw-bold text-light">Gestión de Usuarios</h1>
+
+                <!-- Botón para crear usuario -->
+                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalCrear">
+                    <i class="bi bi-plus-circle-fill"></i> Crear Usuario
+                </button>
+
+                <!-- Tabla de usuarios -->
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Usuario</th>
+                                <th scope="col">Rol</th>
+                                <th scope="col">Fecha Creación</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-usuarios">
+                            <!-- Los usuarios se cargarán dinámicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="./src/js/usuarios.js"></script>
+</body>
+
+</html>

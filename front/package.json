@@ -1,0 +1,21 @@
+{
+  "name": "front",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "sass": "^1.89.2",
+    "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.7",
+    "bootstrap-icons": "^1.13.1",
+    "sweetalert2": "^11.22.0"
+  }
+}

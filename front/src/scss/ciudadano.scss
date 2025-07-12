@@ -1,0 +1,10 @@
+@import "bootstrap/scss/bootstrap";
+
+
+$bootstrap-icons-font-dir: "bootstrap-icons/font/fonts";
+
+// Import the Sass files as usual
+@import "bootstrap-icons/font/bootstrap-icons";
+body {
+    background-color: rgb(25, 25, 25);
+}
