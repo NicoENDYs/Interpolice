@@ -1,0 +1,159 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: localhost:3307
+-- Tiempo de generación: 12-07-2025 a las 07:32:56
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `Interpolice`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ciudadano`
+--
+
+CREATE TABLE `ciudadano` (
+  `codigo` bigint(16) NOT NULL,
+  `nombre` varchar(75) NOT NULL,
+  `apellido` varchar(75) DEFAULT NULL,
+  `apodo` varchar(75) NOT NULL,
+  `fechaNacimiento` date NOT NULL,
+  `planetaOrigen` varchar(75) NOT NULL,
+  `planetaResidencia` varchar(75) NOT NULL,
+  `foto` varchar(75) NOT NULL,
+  `qr` varchar(255) NOT NULL,
+  `estado` enum('0','1','2') NOT NULL DEFAULT '1' COMMENT '(0 muerto, 1 vivo, 2 congelado por criogenia)',
+  `Actividad` enum('Activo','Inactivo') NOT NULL DEFAULT 'Activo'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `ciudadano`
+--
+
+INSERT INTO `ciudadano` (`codigo`, `nombre`, `apellido`, `apodo`, `fechaNacimiento`, `planetaOrigen`, `planetaResidencia`, `foto`, `qr`, `estado`, `Actividad`) VALUES
+(5, 'Darth', 'Vader', 'Anakin', '1975-12-01', 'Tatooine', 'Death Star', 'vader.jpg', '', '2', 'Inactivo'),
+(6, 'Epada', '', '', '2000-05-25', 'Marron', 'Huijui', 'espada.jpg', '', '1', 'Inactivo'),
+(1750284088789, 'jaimico', 'q', 'qwwer', '2000-05-25', 'Jalbulgo', 'Jalbulgo', 'qeqeq', '/qr/1750284088789.png', '1', 'Inactivo'),
+(1750284196602, 'paco', 'sanchez', 'el cacas', '2000-05-25', 'mercurio', 'tierra', 'imgMonito.png', '/qr/1750284196602.png', '0', 'Inactivo'),
+(1750285026638, 'paco', 'sanchez', 'el cacas', '2000-05-25', 'mercurio', 'tierra', 'aaaaa', '/qr/1750285026638.png', '1', 'Inactivo'),
+(1750285647216, 'paco', 'sanchez', 'el cacas', '2000-05-25', 'mercurio', 'tierra', 'imgMonito.png', '/qr/1750285647216.png', '1', 'Inactivo'),
+(1750285684994, 'paco', 'sanchez', 'el cacas', '2000-05-25', 'mercurio', 'tierra', 'aaaaa', '/qr/1750285684994.png', '1', 'Inactivo'),
+(1750285707466, 'paco', 'sanchez', 'el cacas', '2000-05-25', 'mercurio', 'tierra', 'imgMonito.png', '/qr/1750285707466.png', '1', 'Inactivo'),
+(1750286022841, 'OPPOOPO', 'qwewewe', 'Kache', '2000-05-25', 'mercurio', 'tierra', 'aaaaa', '/qr/1750286022841.png', '1', 'Inactivo'),
+(1750315964953, 'paco', 'sanchez', 'el cacas', '2000-05-25', 'mercurio', 'tierra', 'aaaaa', '/qr/1750315964953.png', '1', 'Inactivo'),
+(1750315965912, 'paco', 'sanchez', 'el cacas', '2000-05-25', 'mercurio', 'tierra', 'aaaaa', '/qr/1750315965912.png', '1', 'Inactivo'),
+(1750315966092, 'paco', 'sanchez', 'el cacas', '2000-05-25', 'mercurio', 'tierra', 'aaaaa', '/qr/1750315966092.png', '1', 'Inactivo'),
+(1750316334771, 'paco', 'sanchez', 'el cacas', '2000-05-25', 'mercurio', 'tierra', 'aaaaa', '/qr/1750316334771.png', '1', 'Inactivo'),
+(1750369626407, 'Nicolas20537', 'SANCHEZ', 'qqqqQQQQQQQQQQQQQQqqqqqqqqqqQQQQQq', '1901-01-01', 'qwerty', 'YUTIRANUS', 'imgMonito.png', '/qr/1750369626407.png', '2', 'Inactivo'),
+(1750369941456, 'paco', 'sanchez', 'el cacas', '2000-05-25', 'mercurio', 'tierra', 'imgMonito.png', '/qr/1750369941456.png', '2', 'Inactivo'),
+(1750370728455, 'JUA', 'JOE', 'JJ', '1901-01-01', 'Peru', 'VENEZUELA', 'imgMonito.png', '/qr/1750370728455.png', '0', 'Inactivo'),
+(1752291077963, 'as', 'as', 'w', '2025-07-02', 'qwerty', 'asdfg', 'Arch.jpg', '/qr/1752291077963.png', '1', 'Inactivo'),
+(1752296557636, 'e', 'dsa', 'ads', '2025-07-01', 'ads', 'qew', 'ciudadano-1752296557629-799419175.png', '/qr/1752296557636.png', '1', 'Activo'),
+(1752297407987, 'Nicolas', 'Guarin', 'END', '2007-04-01', 'Tierra', 'K03-B05', 'ciudadano-1752297407984-772679967.png', '/qr/1752297407987.png', '1', 'Activo'),
+(1752297511059, 'Carlo', 'pere}', 'qwertasdfal', '4110-05-05', 'qwertyuidf486013adf-af', 'nj41-ad4', 'ciudadano-1752297511058-496841670.webp', '/qr/1752297511059.png', '2', 'Activo');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL,
+  `rol` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `roles`
+--
+
+INSERT INTO `roles` (`id`, `rol`) VALUES
+(1, 'admin'),
+(2, 'policia'),
+(3, 'secretaria'),
+(4, 'general'),
+(5, 'comandante');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
+  `usuario` varchar(150) NOT NULL,
+  `pass` varchar(150) NOT NULL,
+  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
+  `rol_id` int(11) DEFAULT NULL,
+  `estado` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0 Activo, 1 Inactivo'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `usuario`, `pass`, `fecha_creacion`, `rol_id`, `estado`) VALUES
+(29864, 'END', '20537', '2025-07-12 02:37:32', 1, 0),
+(29865, 'UNO', '$2b$10$2kyiBL.r/NKWk1g7kqIt9uqRwz/oZ/PpDXKbgqgt9Nw31slj/H8sG', '2025-07-12 03:18:45', 2, 0),
+(29866, 'UNO', '$2b$10$aiarDHmNFtNwWXZ0XJc6yetFgggchAzJrMxgaLXS882qfeGbhymFG', '2025-07-12 04:37:22', 2, 0),
+(29867, 'Char', '$2b$10$jtzNZgYYAy.kwf0LjHS73e21qb4vnTkaene.V2kufq65hyMwXtbsm', '2025-07-12 05:15:33', 1, 0);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `ciudadano`
+--
+ALTER TABLE `ciudadano`
+  ADD PRIMARY KEY (`codigo`);
+
+--
+-- Indices de la tabla `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_usuario_rol` (`rol_id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29868;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
