@@ -1,11 +1,13 @@
 import '../scss/style.scss'
-import viteLogo from '/vite.svg'
+import Loguito from '/USSF.png'
 
 document.querySelector('#app').innerHTML = `
   <div>
-    <a href="../ciudadanos.html" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
+    <a href="../login.html" target="_blank">
+      <img src="${Loguito}" class="logo" alt="Vite logo"  width="100" height="100" />
     </a>
-    <h1>Hello Vite!</h1>
+    <h1>Bienvenido al Sistema de la USSF</h1>
+    <h2>United States Space Force</h2>
+    <p>click en la imagen para continuar</p>
   </div>
 `

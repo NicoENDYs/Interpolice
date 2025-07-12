@@ -8,11 +8,8 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-
-
 import ciudadanos from './src/ciudadanos.js'; // importamos el router de ciudadanos
 import usuarios from './src/usuarios.js'; // importamos el router de usuarios
-
 
 //cors
 const corsOptions = {
@@ -27,14 +24,15 @@ app.use(express.json()); // para que la app entienda el formato json
 app.use(cors()); // usamos el middleware de cors
 
 //agregamos las rutas
-app.use("/api", ciudadanos); // usamos las rutas de aprendiz
+app.use("/api", ciudadanos); // usamos las rutas de ciudadanos
 app.use("/api", usuarios); // usamos las rutas de usuarios
 
-// Cambia 'public' por la carpeta donde están las imágenes
+// Servir archivos estáticos
 app.use('/qr', express.static(path.join(__dirname, 'qr')));
+app.use('/fotos', express.static(path.join(__dirname, 'fotos')));
 
 //encendemos la api abriendo un puerto
-const port = process.env.APP_port || 4101;
+const port = process.env.APP_port || 4100;
 app.listen(port, ()=>{
-    console.log(`Api ejecutandose en el puerto http://localhost:${port}`)
+    console.log(`Api ejecutándose en el puerto http://localhost:${port}`)
 })

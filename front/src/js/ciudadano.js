@@ -2,8 +2,8 @@ import '../scss/ciudadano.scss';
 import * as bootstrap from "bootstrap";
 import Swal from "sweetalert2";
 
-
 const url = "http://localhost:4100/api/ciudadano/";
+
 function cargarCiudadano() {
     fetch(url + "listar")
         .then((response) => response.json())
@@ -48,9 +48,16 @@ function agregarFilaATabla(item) {
     tdNacimiento.textContent = item.fechaNacimiento;
     tdOrigen.textContent = item.planetaOrigen;
     tdResidencia.textContent = item.planetaResidencia;
-    tdFoto.innerHTML = `<img src="${item.foto}"  class="img-thumbnail" style="width: 50px; height: 50px;">`;
+    
+    // Mostrar la foto con la ruta correcta
+    if (item.foto && item.foto !== 'default.png') {
+        tdFoto.innerHTML = `<img src="http://localhost:4100/fotos/${item.foto}" class="img-thumbnail"  width="90px" height="90px" >`;
+    } else {
+        tdFoto.innerHTML = `<span class="text-muted">Sin foto</span>`;
+    }
+    
     let Qr = item.qr;
-    tdQR.innerHTML = `<img src="http://localhost:4100${Qr}" alt="QR" width="80" height="80">`;
+    tdQR.innerHTML = `<img src="http://localhost:4100${Qr}" alt="QR" width="90px" height="90px">`;
     
     let estado = "";
     switch (item.estado) {
@@ -66,18 +73,16 @@ function agregarFilaATabla(item) {
     }
     tdEstado.textContent = estado;
 
-
     btnEliminar.classList.add("btn", "btn-danger");
     btnEliminar.setAttribute("id", "btn-elim");
     btnEliminar.setAttribute("value", `${item.codigo}`);
     btnEliminar.innerHTML = `<i class="bi bi-trash-fill"></i>`;
     btnEliminar.addEventListener("click", eliminarCiudadano);
 
-
     btnEditar.setAttribute("type", "button");
-    btnEditar.classList.add("btn", "btn-primary"); // Cambié a btn-primary como en tu ejemplo
+    btnEditar.classList.add("btn", "btn-primary");
     btnEditar.setAttribute("data-bs-toggle", "modal");
-    btnEditar.setAttribute("data-bs-target", "#ModalEditar"); // Usar tu ID de modal
+    btnEditar.setAttribute("data-bs-target", "#ModalEditar");
     btnEditar.innerHTML = `<i class="bi bi-pencil-square"></i>`;
     btnEditar.setAttribute("value", `${item.codigo}`);
     btnEditar.addEventListener("click", editarCiudadano);
@@ -118,7 +123,6 @@ function eliminarCiudadano() {
     cargarCiudadano()
 }
 
-
 function editarCiudadano() {
     let codigo = this.getAttribute("value");
     console.log(codigo);
@@ -141,73 +145,74 @@ function editarCiudadano() {
 
             document.getElementById("planetaOrigenEdit").value = ciudadano.planetaOrigen;
             document.getElementById("planetaResidenciaEdit").value = ciudadano.planetaResidencia;
-            if (ciudadano.foto) {
-                document.getElementById("previewFotoEdit").src = `http://localhost:4100/fotos/${ciudadano.foto}`; // ajusta la ruta si no es /qr/
+            
+            if (ciudadano.foto && ciudadano.foto !== 'default.png') {
+                document.getElementById("previewFotoEdit").src = `http://localhost:4100/fotos/${ciudadano.foto}`;
                 document.getElementById("previewFotoEdit").style.display = "block";
             } else {
                 document.getElementById("previewFotoEdit").style.display = "none";
             }
 
-            // Estado (seleccionar la opción correspondiente)
             document.getElementById("estadoEdit").value = ciudadano.estado;
         });
-    //Editar(codigo);
 }
 
+let btnEditar = document.querySelector("#btn-edit-ciudadano");
 
-    let btnEditar = document.querySelector("#btn-edit-ciudadano");
-
-    btnEditar.addEventListener("click", (e) => {
-        e.preventDefault();
+btnEditar.addEventListener("click", (e) => {
+    e.preventDefault();
     let codigo = document.getElementById("IdEdit").value;
+    
+    // Usar FormData para enviar archivos
+    const formData = new FormData();
+    formData.append('nombre', document.getElementById("nombreEdit").value);
+    formData.append('apellido', document.getElementById("apellidoEdit").value);
+    formData.append('apodo', document.getElementById("apodoEdit").value);
+    formData.append('fechaNacimiento', document.getElementById("fechaNacimientoEdit").value);
+    formData.append('planetaOrigen', document.getElementById("planetaOrigenEdit").value);
+    formData.append('planetaResidencia', document.getElementById("planetaResidenciaEdit").value);
+    formData.append('estado', document.getElementById("estadoEdit").value);
+    
+    // Añadir archivo si se seleccionó uno
+    const fotoFile = document.getElementById("fotoEdit").files[0];
+    if (fotoFile) {
+        formData.append('foto', fotoFile);
+    }
+    
+    console.log(codigo);
+    Editar(codigo, formData);
+});
 
-        let JsonData = JSON.stringify({
-        nombre: document.getElementById("nombreEdit").value,
-        apellido: document.getElementById("apellidoEdit").value,
-        apodo: document.getElementById("apodoEdit").value,
-        fechaNacimiento: document.getElementById("fechaNacimientoEdit").value,
-        planetaOrigen: document.getElementById("planetaOrigenEdit").value,
-        planetaResidencia: document.getElementById("planetaResidenciaEdit").value,
-        foto: "imgMonito.png",
-        estado: document.getElementById("estadoEdit").value
-    });
-        console.log(codigo);
-        console.log(JsonData);
-        Editar(codigo, JsonData);
-
-
-    });
-
-
-
-
-function Editar(codigo, jsonData) {
+function Editar(codigo, formData) {
     const options = {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/10.3.1' },
-        body: jsonData
+        body: formData // No establecer Content-Type, el navegador lo hará automáticamente
     };
 
     fetch('http://localhost:4100/api/ciudadano/actualizar/' + codigo, options)
         .then(response => response.json())
-        .then(response => console.log(response))
-        .catch(err => console.error(err));  
-
-
-
-    Swal.fire({
-        title: 'Éxito',
-        text: 'Ciudadano actualizado correctamente',
-        icon: 'success',
-        confirmButtonText: 'Aceptar'
-    });
-    setTimeout(() => {
-    location.reload();
-}, 3000);
-    cargarCiudadano()
+        .then(response => {
+            console.log(response);
+            Swal.fire({
+                title: 'Éxito',
+                text: 'Ciudadano actualizado correctamente',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            });
+            setTimeout(() => {
+                location.reload();
+            }, 2000);
+        })
+        .catch(err => {
+            console.error(err);
+            Swal.fire({
+                title: 'Error',
+                text: 'Error al actualizar el ciudadano',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+        });
 }
-
-
 
 ///CREAR
 let formCiudadano = document.querySelector("#añadir-ciudadano");
@@ -223,53 +228,53 @@ BtnAdd.addEventListener("click", (e) => {
     let fechaNacimiento = document.getElementById("fechaNacimiento").value;
     let planetaOrigen = document.getElementById("planetaOrigen").value.trim();
     let planetaResidencia = document.getElementById("planetaResidencia").value.trim();
-    let fotoInput = document.getElementById("foto");
-    let foto = fotoInput.files[0]?.name || ""; // solo el nombre del archivo
     let estado = document.getElementById("estado").value;
 
     // Validaciones básicas
     if (!nombre || !fechaNacimiento || !planetaOrigen || !planetaResidencia) {
         Swal.fire({
             title: "Error!",
-            text: "los campos Nombre, fecha de Nacimiento, plateta de Origen y de Residencia deben completarse.",
+            text: "Los campos Nombre, Fecha de Nacimiento, Planeta de Origen y de Residencia deben completarse.",
             icon: "error",
             confirmButtonText: "OK"
         });
         return;
     }
 
-    // Preparar JSON
-    let ciudadano = {
-        nombre,
-        apellido,
-        apodo,
-        fechaNacimiento,
-        planetaOrigen,
-        planetaResidencia,
-        foto,
-        estado
-    };
+    // Usar FormData para enviar archivos
+    const formData = new FormData();
+    formData.append('nombre', nombre);
+    formData.append('apellido', apellido);
+    formData.append('apodo', apodo);
+    formData.append('fechaNacimiento', fechaNacimiento);
+    formData.append('planetaOrigen', planetaOrigen);
+    formData.append('planetaResidencia', planetaResidencia);
+    formData.append('estado', estado);
+    
+    // Añadir archivo si se seleccionó uno
+    const fotoFile = document.getElementById("foto").files[0];
+    if (fotoFile) {
+        formData.append('foto', fotoFile);
+    }
 
     // Enviar al backend
-    crearCiudadano(ciudadano);
+    crearCiudadano(formData);
 });
 
-function crearCiudadano(data) {
+function crearCiudadano(formData) {
     fetch(url + "crear", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
+        body: formData // No establecer Content-Type, el navegador lo hará automáticamente
     })
     .then(res => res.json())
     .then(respuesta => {
-        if (respuesta.success || respuesta.data) {
+        if (respuesta.estado === "ok" || respuesta.data) {
             // Limpiar formulario
             formCiudadano.reset();
+            document.getElementById("previewFoto").style.display = "none";
 
-            // Agregar fila a la tabla
-            agregarFilaATabla(respuesta.data);
+            // Recargar la tabla
+            cargarCiudadano();
 
             // Cerrar modal
             const modal = bootstrap.Modal.getInstance(document.getElementById("exampleModal"));
@@ -278,7 +283,7 @@ function crearCiudadano(data) {
             // Mensaje de éxito
             Swal.fire({
                 title: "Éxito",
-                text: "El ciudadano ha sido registrado.",
+                text: "El ciudadano ha sido registrado correctamente.",
                 icon: "success"
             });
         } else {
@@ -289,40 +294,31 @@ function crearCiudadano(data) {
         console.error(error);
         Swal.fire({
             title: "Error",
-            text: "No se pudo agregar el ciudadano.",
+            text: "No se pudo agregar el ciudadano. " + error.message,
             icon: "error"
         });
     });
 }
 
+// Preview de imagen para crear
+document.getElementById("foto").addEventListener("change", function () {
+    const file = this.files[0];
+    const preview = document.getElementById("previewFoto");
 
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = "";
+        preview.style.display = "none";
+    }
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Preview de imagen para editar
 document.getElementById("fotoEdit").addEventListener("change", function () {
     const file = this.files[0];
     const preview = document.getElementById("previewFotoEdit");
@@ -339,6 +335,3 @@ document.getElementById("fotoEdit").addEventListener("change", function () {
         preview.style.display = "none";
     }
 });
-
-
-
