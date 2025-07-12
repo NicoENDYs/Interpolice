@@ -4,6 +4,7 @@
 - **Puerto:** 4100
 - **Base URL:** `http://localhost:4100/api`
 - **Tecnologías:** Node.js, Express, MySQL, bcrypt, multer, qrcode
+- **Documentos:** Recisar la carpeta Documentacion
 
 ## Usuarios
 
