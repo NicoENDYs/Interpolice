@@ -153,7 +153,7 @@ function editarUsuario() {
             const usuario = datos.data[0];
             document.getElementById("idEdit").value = usuario.id;
             document.getElementById("usuarioEdit").value = usuario.usuario;
-            document.getElementById("passEdit").value = ""; // Limpiar campo contraseña
+            document.getElementById("passEdit").value = ""; 
             document.getElementById("rol_idEdit").value = usuario.rol_id;
         })
         .catch((error) => {

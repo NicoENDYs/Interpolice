@@ -106,6 +106,7 @@ function agregarFilaATabla(item) {
     tabla.appendChild(tr);
 }
 
+//eliminar 
 function eliminarCiudadano() {
     let codigo = this.getAttribute("value");
     console.log(codigo);
@@ -123,6 +124,7 @@ function eliminarCiudadano() {
     cargarCiudadano()
 }
 
+//funcion editar
 function editarCiudadano() {
     let codigo = this.getAttribute("value");
     console.log(codigo);
@@ -264,7 +266,7 @@ BtnAdd.addEventListener("click", (e) => {
 function crearCiudadano(formData) {
     fetch(url + "crear", {
         method: "POST",
-        body: formData // No establecer Content-Type, el navegador lo hará automáticamente
+        body: formData 
     })
     .then(res => res.json())
     .then(respuesta => {
